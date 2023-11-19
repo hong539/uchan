@@ -1,11 +1,11 @@
 uchan:
-  siteUrl: "https://<your_domain_here>"
-  assetUrl: "https://<your_domain_here>/static/"
+  siteUrl: "http://example-66.com"
+  assetUrl: "http://example-66.com"
 
 ingress:
   enabled: true
   hosts:
-    - host: <your_domain_here>
+    - host: example-66.com
       paths:
         - path: /
           pathType: ImplementationSpecific

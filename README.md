@@ -111,4 +111,11 @@ EOF
 git clone https://github.com/floens/uchan
 cd uchan
 helm install uchan charts/uchan/ -n uchan -f values.yaml
+helm uninstall uchan
+
+#
+docker build . -t uchan:latest -f Dockerfile
+kind load --name hong-cluster docker-image uchan:latest
+kubectl apply -f my-manifest-using-my-image:unique-tag
+
 ```
