@@ -1,0 +1,11 @@
+uchan:
+  siteUrl: "https://<your_domain_here>"
+  assetUrl: "https://<your_domain_here>/static/"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: <your_domain_here>
+      paths:
+        - path: /
+          pathType: ImplementationSpecific

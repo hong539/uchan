@@ -73,3 +73,42 @@ the site.
 top of that is a good caching mechanism, so that responses are delivered just as fast as
 static files. It can handle the load when your site grows, adding new servers to take up
 the extra load, there is no single point of failure.
+
+
+## Test
+
+```shell
+#with docker
+docker build . -t uchan:latest -f Dockerfile
+docker run -d --name uchan -p 8888:3031 uchan:latest
+
+#with kind local k8s cluster
+#install varnish-operator
+kic
+k create ns varnish-operator
+helm repo add varnish-operator https://raw.githubusercontent.com/IBM/varnish-operator/main/helm-releases
+helm repo update
+helm install varnish-operator --namespace varnish-operator varnish-operator/varnish-operator
+k get deployments.apps
+
+#install with helm chart
+cat <<EOF > ./values.yaml
+uchan:
+  siteUrl: "https://example.com"
+  assetUrl: "https://example.com/static/"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+EOF          
+
+
+#
+git clone https://github.com/floens/uchan
+cd uchan
+helm install uchan charts/uchan/ -n uchan -f values.yaml
+```
